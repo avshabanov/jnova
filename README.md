@@ -13,14 +13,13 @@ mine micro-di library.
 
 Core module defines reusable parts that is not tied to java, such as
 - DiagnosticsLog - the reporter component that is able to provide the user with nicely formatted message, e.g.
-```text
     Test.java:7: warning:
     [unchecked] unchecked generic array creation
     for varargs parameter of type List<String>[]
         Arrays.asList(Arrays.asList("January",
         ^
     1 warning
-```
+
 - Naming module - efficient UTF-8 symbol table
 - Bundle - Resource bundle support
 - Source - wrapper around certain source code provider (e.g. file) with fast access to the source buffer

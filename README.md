@@ -12,19 +12,20 @@ The only dependency this library has is non-intrusive DI module. You may use spr
 mine micro-di library.
 
 Core module defines reusable parts that is not tied to java, such as
-- DiagnosticsLog - the reporter component that is able to provide the user with nicely formatted message, e.g.
-    Test.java:7: warning:
-    [unchecked] unchecked generic array creation
-    for varargs parameter of type List<String>[]
-        Arrays.asList(Arrays.asList("January",
-        ^
-    1 warning
+- *DiagnosticsLog* - the reporter component that is able to provide the user with nicely formatted message, e.g.
 
-- Naming module - efficient UTF-8 symbol table
-- Bundle - Resource bundle support
-- Source - wrapper around certain source code provider (e.g. file) with fast access to the source buffer
-- Tag - generic taggable base class that may be subclassed to provide certain class hierarchy with customizable user data
-- ImmList - a very small and efficient immutable alternative to the java's LinkedList
+        Test.java:7: warning:
+        [unchecked] unchecked generic array creation
+        for varargs parameter of type List<String>[]
+            Arrays.asList(Arrays.asList("January",
+            ^
+        1 warning
+
+- *Naming* module - efficient UTF-8 symbol table
+- *Bundle* - Resource bundle support
+- *Source* - wrapper around certain source code provider (e.g. file) with fast access to the source buffer
+- *Tag* - generic taggable base class that may be subclassed to provide certain class hierarchy with customizable user data
+- *ImmList* - a very small and efficient immutable alternative to the java's LinkedList
 
 ## Maven Usage
 

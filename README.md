@@ -6,7 +6,7 @@ A Complete Java 6 parser.
 Please, note that this work is not a developing parser "from scratch", some part of this work based on the
 reverse engineered opensource Oracle's javac compiler.
 
-The purpose of this work was to separate lexer parser into the stand alone library usable for the others.
+The purpose of this work was to separate lexer and parser into the stand alone library usable for the others.
 
 The only dependency this library has is non-intrusive DI module. You may use spring, google guice, pico container or
 mine micro-di library.

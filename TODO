@@ -1,0 +1,55 @@
+
+
+1. Enumeration through ImmList - replace to foreach blocks.
+
+
+2. ImmList.nonEmpty instead of !X.isEmpty().
+
+
+3. StringBuilder instead of StringBuffer.
+
+
+4. Remove proprietary JVM flags from code.Flags.
+
+
+5. Tagged Ast.Node:
+     * TODO: BaseType for *almost* all the nodes
+     * TODO: ClassSymbol for ClassDecl
+     * TODO: Symbol for Ident, Annotation
+     * TODO: JavaFileObject, Scope (namedImport+starImport), PackageSymbol,
+     * TODO:   (continued) LineMap, DocComments, EndPositions  for CompilationUnit
+     * TODO: VarSymbol for VariableDecl
+     * TODO: MethodSymbol for MethodDecl
+
+6. Avoid repetative construction in AstPrettyPrinter:
+        if (node.getCondition().getKind() == AstNodeKind.PARENS) {
+            printExpr(tree.cond);
+        } else {
+            print("(");
+            printExpr(tree.cond);
+            print(")");
+        }
+
+7. All the collections members of Ast.Node descendants should define ImmList<? extends Expression/Statement/etc>
+   instead of just ImmList<Expression/Statement/etc>
+
+8. Disallow Ast.Node descendants to contain null nodes.
+   Rework parser to disallow passing null nodes in arguments.
+   Rework all the code that handles Ast.Node(s) (i.e. AstScanner, AstPrettyPrinter) so they will never handle null nodes.
+   To research nullability and non-nullability for Ast.
+   To define whether it is possible to stick to all-is-NOT-null scheme, e.g. ImmList.nil for empty lists
+   and EmptyStatement for "now-null" nodes.
+
+9. To replace all the loggers in parser to the one approach - either domain or non-domain specific.
+
+10. Separate jnova-core - to - jnova-util, jnova-parser.
+- or -
+	jnova-util
+	jnova-ast
+	jnova-parser
+
+11. Hide Name under the interface (e.g. Name and Name.Table), this would significantly reduce the need to maintain
+    hashtable for the particular naming implementation and as such reduce Ast creation overhead. The simple string-only
+    wrappers would eliminate the need to maintain full-blown HashTable.
+
+X. XXX

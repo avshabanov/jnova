@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>jnova-parent</artifactId>
+        <groupId>com.truward.jnova</groupId>
+        <version>1.0-root</version>
+    </parent>
+
+    <groupId>com.truward.jnova</groupId>
+    <artifactId>jnova-java-parser</artifactId>
+    <version>${jnova.version}</version>
+    <packaging>jar</packaging>
+    <name>Jnova Java Parser</name>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.truward.jnova</groupId>
+            <artifactId>jnova-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truward.jnova</groupId>
+            <artifactId>jnova-java-ast</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truward.di</groupId>
+            <artifactId>micro-di</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!--<build>-->
+        <!--<resources>-->
+            <!--<resource>src/main/resources</resource>-->
+        <!--</resources>-->
+    <!--</build>-->
+</project>

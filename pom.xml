@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.truward.jnova</groupId>
+    <artifactId>jnova-parent</artifactId>
+
+    <version>1.0-root</version>
+
+    <name>Jnova Parent</name>
+    <description>A Complete Java 6 Parser - Parent Package</description>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <!-- project artifacts versions -->
+        <jnova.version>1.0.1</jnova.version>
+
+        <!--  compiler settings -->
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+
+        <!-- encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>custom-central</id>
+            <name>libs-release</name>
+            <url>https://github.com/avshabanov/maven-repo/raw/master/libs-release</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- common libs -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>jnova-core</module>
+        <module>jnova-java-ast</module>
+        <module>jnova-java-parser</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project dependencies -->
+            <dependency>
+                <groupId>com.truward.jnova</groupId>
+                <artifactId>jnova-core</artifactId>
+                <version>${jnova.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.truward.jnova</groupId>
+                <artifactId>jnova-java-ast</artifactId>
+                <version>${jnova.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.truward.jnova</groupId>
+                <artifactId>jnova-java-parser</artifactId>
+                <version>${jnova.version}</version>
+            </dependency>
+
+
+            <!-- Micro DI -->
+            <dependency>
+                <groupId>com.truward.di</groupId>
+                <artifactId>micro-di</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <profiles>
+        <profile>
+            <id>attach-sources</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Generate java sources -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.1.2</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <!--suppress MavenModelInspection -->
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
+

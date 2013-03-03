@@ -17,7 +17,8 @@ package com.truward.jnova.util.naming.support;
 import com.truward.jnova.util.naming.Symbol;
 import com.truward.jnova.util.naming.SymbolTable;
 
-import java.lang.ref.SoftReference;
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 
 /**
  * Represents symbol table.
@@ -49,7 +50,7 @@ public final class HashSymbolTable implements SymbolTable {
         /**
          * Cached string representation.
          */
-        private SoftReference<String> cachedString;
+        private Reference<String> cachedString;
 
 
 
@@ -82,7 +83,7 @@ public final class HashSymbolTable implements SymbolTable {
 
             if (result == null) {
                 result = UtfUtil.utfToString(HashSymbolTable.this.nameArray, index, utfLength);
-                cachedString = new SoftReference<String>(result);
+                cachedString = new WeakReference<String>(result);
             }
 
             return result;
@@ -135,164 +136,6 @@ public final class HashSymbolTable implements SymbolTable {
         private byte[] getAssociatedArray() {
             return HashSymbolTable.this.nameArray;
         }
-
-        //    /**
-//     * Compare this name to other name, yielding -1 if smaller, 0 if equal, 1 if greater.
-//     */
-//    public boolean less(Name that) {
-//        int i = 0;
-//        while (i < this.utfLength && i < that.utfLength) {
-//            byte thisb = this.table.nameArray[this.index + i];
-//            byte thatb = that.table.nameArray[that.index + i];
-//            if (thisb < thatb) return true;
-//            else if (thisb > thatb) return false;
-//            else i++;
-//        }
-//        return this.utfLength < that.utfLength;
-//    }
-
-//    /**
-//     * Returns the length of this name.
-//     */
-//    public int length() {
-//        return toString().length();
-//    }
-
-//    /** Returns i'th byte of this name.
-//     */
-//    public byte byteAt(int i) {
-//        return table.nameArray[index + i];
-//    }
-//
-//    /** Returns first occurrence of byte b in this name, utfLength if not found.
-//     */
-//    public int indexOf(byte b) {
-//        byte[] nameArray = table.nameArray;
-//        int i = 0;
-//        while (i < utfLength && nameArray[index + i] != b) i++;
-//        return i;
-//    }
-//
-//    /** Returns last occurrence of byte b in this name, -1 if not found.
-//     */
-//    public int lastIndexOf(byte b) {
-//        byte[] nameArray = table.nameArray;
-//        int i = utfLength - 1;
-//        while (i >= 0 && nameArray[index + i] != b) i--;
-//        return i;
-//    }
-//
-//    /** Does this name start with prefix?
-//     */
-//    public boolean startsWith(Name prefix) {
-//        int i = 0;
-//        while (i < prefix.utfLength &&
-//               i < utfLength &&
-//               table.nameArray[index + i] == prefix.table.nameArray[prefix.index + i])
-//            i++;
-//        return i == prefix.utfLength;
-//    }
-//
-//    /** Does this name end with suffix?
-//     */
-//    public boolean endsWith(Name suffix) {
-//        int i = utfLength - 1;
-//        int j = suffix.utfLength - 1;
-//        while (j >= 0 && i >= 0 &&
-//               table.nameArray[index + i] == suffix.table.nameArray[suffix.index + j]) {
-//            i--; j--;
-//        }
-//        return j < 0;
-//    }
-//
-//    /** Returns the sub-name starting at position start, up to and
-//     *  excluding position end.
-//     */
-//    public Name subName(int start, int end) {
-//        if (end < start) end = start;
-//        return fromUtf(table, table.nameArray, index + start, end - start);
-//    }
-
-//    /** Replace all `from' bytes in this name with `to' bytes.
-//     */
-//    public Name replace(byte from, byte to) {
-//        byte[] nameArray = table.nameArray;
-//        int i = 0;
-//        while (i < utfLength) {
-//            if (nameArray[index + i] == from) {
-//                byte[] bs = new byte[utfLength];
-//                System.arraycopy(nameArray, index, bs, 0, i);
-//                bs[i] = to;
-//                i++;
-//                while (i < utfLength) {
-//                    byte b = nameArray[index + i];
-//                    bs[i] = b == from ? to : b;
-//                    i++;
-//                }
-//                return fromUtf(table, bs, 0, utfLength);
-//            }
-//            i++;
-//        }
-//        return this;
-//    }
-//
-//    /** Return the concatenation of this name and name `n'.
-//     */
-//    public Name append(Name n) {
-//        byte[] bs = new byte[utfLength + n.utfLength];
-//        getBytes(bs, 0);
-//        n.getBytes(bs, utfLength);
-//        return fromUtf(table, bs, 0, bs.length);
-//    }
-//
-//    /** Return the concatenation of this name, the given ASCII
-//     *  character, and name `n'.
-//     */
-//    public Name append(char c, Name n) {
-//        byte[] bs = new byte[utfLength + n.utfLength + 1];
-//        getBytes(bs, 0);
-//        bs[utfLength] = (byte)c;
-//        n.getBytes(bs, utfLength+1);
-//        return fromUtf(table, bs, 0, bs.length);
-//    }
-
-//    /**
-//     * Compares this name to the non-null another one, relying on an
-//     * arbitrary but consistent complete order among all Names.
-//     * @param other Name to compare against.
-//     * @return Three-way comparison result.
-//     */
-//    public int compareTo(Name other) {
-//        return other.index - this.index;
-//    }
-
-//    /** Return the concatenation of all nameArray in the array `ns'.
-//     */
-//    public static Name concat(Table table, Name ns[]) {
-//        int utfLength = 0;
-//        for (int i = 0; i < ns.length; i++)
-//            utfLength = utfLength + ns[i].utfLength;
-//        byte[] bs = new byte[utfLength];
-//        utfLength = 0;
-//        for (int i = 0; i < ns.length; i++) {
-//            ns[i].getBytes(bs, utfLength);
-//            utfLength = utfLength + ns[i].utfLength;
-//        }
-//        return fromUtf(table, bs, 0, utfLength);
-//    }
-//
-//    public char charAt(int index) {
-//        return toString().charAt(index);
-//    }
-//
-//    public CharSequence subSequence(int start, int end) {
-//        return toString().subSequence(start, end);
-//    }
-//
-//    public boolean contentEquals(CharSequence cs) {
-//        return this.toString().equals(cs.toString());
-//    }
-
     }
 
     /**

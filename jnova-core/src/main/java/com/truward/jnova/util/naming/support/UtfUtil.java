@@ -16,6 +16,7 @@ package com.truward.jnova.util.naming.support;
 
 /**
  * UTF-8 converter utility class.
+ * TODO: use {@link java.nio.charset.CharsetEncoder}, {@link java.nio.charset.CharsetDecoder}
  */
 public final class UtfUtil {
     private UtfUtil() {} // Prevent instantiation
